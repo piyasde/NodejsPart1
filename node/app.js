@@ -78,6 +78,6 @@ app.post('/insertuser', function (req, res){
 	connection.end();   
 });
 // Launch server
-connection.end(); 
+
 
 app.listen(1212);
