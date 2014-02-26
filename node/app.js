@@ -13,9 +13,6 @@ user : 'root',
 password : '',
 database: "test"
 });
-
-
-
 // Config
 
 app.configure(function () {
@@ -32,7 +29,8 @@ app.get('/api', function (req, res) {
 
 
 app.get('/getallusers', function (req, res) {
-   connection.connect();	
+   connection.connect();
+  	
    connection.query('SELECT * FROM user;', function (error, rows, fields) { 
          res.writeHead(200, {'Content-Type': 'text/plain'});
 		 str='';
@@ -40,11 +38,13 @@ app.get('/getallusers', function (req, res) {
 			str = str + rows[i].username +'\n';
 		 res.end( str);
       }); 
-   connection.end();   
+      connection.end();   
+     
 });
 
 app.get('/user/:id', function (req, res){
 	connection.connect();
+  
 	connection.query('SELECT * FROM user where id ='+req.params.id, function (error, rows, fields) { 
          res.writeHead(200, {'Content-Type': 'text/plain'});
 		 str='';
@@ -60,6 +60,7 @@ app.get('/user/:id', function (req, res){
 		}
       });
       connection.end();   
+
 });
 
 app.post('/insertuser', function (req, res){
@@ -77,5 +78,6 @@ app.post('/insertuser', function (req, res){
 	connection.end();   
 });
 // Launch server
+connection.end(); 
 
 app.listen(1212);
